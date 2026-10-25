@@ -1,0 +1,3 @@
+apple 40
+milk 60
+bread 25

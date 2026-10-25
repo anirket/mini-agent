@@ -97,7 +97,6 @@ Haiku helps here: it makes bad tool calls more often than Opus, so the bugs you'
 - ⚠️ Leave `strict: true` off for now. It would hide the bad-argument bugs you're practising on. Note it for `COMPARISON.md`.
 
 ### Phase 2: Stop conditions · ~2 hrs
-- **Loop:** count `(name, json.dumps(input, sort_keys=True))`. On the 3rd identical call, send back "you already did this". On the 4th, stop with `stop="loop"`.
 - **Token budget:** add up `r.usage` across steps; once over e.g. 60k, stop with `stop="budget"`
 - **Step limit:** make one last call with `tool_choice={"type": "none"}` so the model has to answer → `stop="max_steps"`
 - **`stop_reason == "max_tokens"`:** the reply was cut off, so don't run its tool calls → `stop="truncated"`
@@ -108,7 +107,7 @@ Haiku helps here: it makes bad tool calls more often than Opus, so the bugs you'
 - Step limit: run with `MAX_STEPS=2` on a task that needs 3 tools
 - Budget: set the run budget to ~3k tokens
 - Truncated: set `MAX_TOKENS=50`
-- Bad arguments, unknown tools and loops: Haiku produces these on its own sometimes, so check `runs.jsonl` for them as you go
+- Bad arguments and unknown tools: Haiku produces these on its own sometimes, so check `runs.jsonl` for them as you go. A model that repeats itself is caught by the step limit.
 - Collect these runs in `tests/test_failures.py` and check that each one ends with the stop reason you expect
 
 ---
@@ -125,17 +124,17 @@ Haiku helps here: it makes bad tool calls more often than Opus, so the bugs you'
 - Count each new message once, when you append it, and store the number
 - Check yourself: your total should be close to `r.usage.input_tokens`
 
-### Phase 2: Ceilings + summary · ~1.5 hrs
-- Ceilings: system 1.5k · tools 1.5k · each tool result 2k · history 12k · total 20k. This also keeps every prompt well under Haiku's 100k price step.
-- Cut an oversized tool result **when you first append it**, never later
-- If history goes over its ceiling: summarise the middle with one LLM call, and keep the task plus the last 4 messages word for word
-- ⚠️ The kept tail must **start with an assistant message**. A `tool_result` whose `tool_use` was summarised away gets rejected.
-- ⚠️ Remove the `thinking` blocks from the kept messages. Old thinking blocks get rejected once the history before them has changed.
+### Phase 2: Summarise old turns (`compact` in `budget.py`) · ~1.5 hrs
+- One ceiling: once history (everything except system + tools) goes over `HISTORY_CEILING` (12k), summarise
+- Keep the last `KEEP_LAST = 4` messages word for word; summarise everything before them, including an earlier summary
+- The summary call gets the old messages as they are (thinking blocks too), with the same `system` + `tools` and `tool_choice: none`
+- ⚠️ Keep `KEEP_LAST` even: the history always ends with tool results, so the kept part starts with an assistant message and every tool call stays with its result
+- ⚠️ Keep the ceiling well above what 4 messages can hold, or a summary can't shrink anything
 
 ```python
 messages = [
     {"role": "user", "content": f"{task}\n\n<progress_so_far>\n{summary}\n</progress_so_far>"},
-    *strip_thinking(tail),
+    *tail,
 ]
 ```
 

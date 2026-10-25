@@ -21,40 +21,34 @@ class fetch_url_input(BaseModel):
 class read_file_input(BaseModel):
     file_name: str = Field(..., description="Name of the file whose contents need to be fetched")
 
-def calculate(first_input: float, second_input: float, expression: allowed_expression) -> float | str:
-    try:
-        if expression == '+':
-            return first_input + second_input
-        elif expression == '-':
-            return first_input - second_input
-        elif expression == '*':
-            return first_input * second_input
-        elif expression == '/':
-            return first_input / second_input 
-        elif expression == '**':
-            return first_input ** second_input 
-        elif expression == '%':
-            return first_input % second_input 
-        else:
-            return f"Not a Valid expression, The allowed expressions are {allowed_expression}"
-    except Exception as e:
-        return f"Something went wrong {type(e)}: {e}"
+# Errors are raised, not returned: execute_tool catches them and sets is_error=True
+def calculate(first_input: float, second_input: float, expression: allowed_expression) -> float:
+    if expression == '+':
+        return first_input + second_input
+    elif expression == '-':
+        return first_input - second_input
+    elif expression == '*':
+        return first_input * second_input
+    elif expression == '/':
+        return first_input / second_input
+    elif expression == '**':
+        return first_input ** second_input
+    elif expression == '%':
+        return first_input % second_input
+    raise ValueError(f"Not a valid expression. Allowed: {allowed_expression}")
 
 
 def fetch_url(url: str) -> str:
-    try:
-       parsed = urlparse(url)
-       if parsed.scheme not in ("http", "https"):
-           raise ValueError('Only HTTP or HTTPS urls allowed')
-       response = httpx.get(url, timeout=10.0, follow_redirects=True,
-                            headers={'User-Agent': 'mini-agent/0.1 (learning project)'})
-       response.raise_for_status()
-       soup = BeautifulSoup(response.text, 'html.parser')
-       for tag in soup(['script', 'style']):
-           tag.decompose()
-       return soup.get_text(' ', strip=True)[:8000]
-    except httpx.HTTPError as e:
-        return f"HTTP error occurred: {e}"
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError('Only HTTP or HTTPS urls allowed')
+    response = httpx.get(url, timeout=10.0, follow_redirects=True,
+                         headers={'User-Agent': 'mini-agent/0.1 (learning project)'})
+    response.raise_for_status()   # 404 / timeout raise httpx errors; execute_tool catches them
+    soup = BeautifulSoup(response.text, 'html.parser')
+    for tag in soup(['script', 'style']):
+        tag.decompose()
+    return soup.get_text(' ', strip=True)[:8000]
 
 
 def read_file(file_name: str) -> str:

@@ -1,12 +1,23 @@
 import os
 import json
+import anthropic
 from anthropic import Anthropic
-from config import MAX_TOKENS, MODEL, SYSTEM_PROMPT, MAX_STEPS, USD_INR_CONVERSION_RATE
+from config import MAX_TOKENS, MODEL, SYSTEM_PROMPT, MAX_STEPS, USD_INR_CONVERSION_RATE, BUDGET, HISTORY_CEILING, KEEP_LAST
 from dotenv import load_dotenv
 from tools import all_tools, read_file, fetch_url, calculate, calculate_input, fetch_url_input, read_file_input
 from pydantic import ValidationError
+from budget import count_fixed, count_total, compact
 
 allowed_tools = [tool['name'] for tool in all_tools]
+
+
+def show_budget(client, messages, step, fixed, cost) -> int:
+    """Counts the request before sending it and prints where the tokens go. Returns the total."""
+    total = count_total(client, messages)
+    history = total - fixed['system'] - fixed['tools']
+    print(f"step {step} | system {fixed['system']} | tools {fixed['tools']} | "
+          f"history {history}/{HISTORY_CEILING} | total {total} | ₹{cost * USD_INR_CONVERSION_RATE:.2f} so far")
+    return total
 
 def execute_tool(name: str, input: dict) -> tuple:
     is_error = False
@@ -61,14 +72,34 @@ def finish (stop_reason, task, answer, steps, tokens, cost):
 def call_llm(client: Anthropic, messages: list) -> dict:
     tokens = 0
     cost = 0
+    result = ''
+    task = messages[0]['content']   # saved, because a summary rewrites messages[0]
     for steps in range(MAX_STEPS):
-        response = client.messages.create(
-            model=MODEL['id'],
-            system=SYSTEM_PROMPT,
-            max_tokens=MAX_TOKENS,
-            messages=messages,
-            tools=all_tools
-        )
+        try:
+            if steps == 0:
+                fixed = count_fixed(client)   # system prompt + tools never change, so count them once
+            estimate = show_budget(client, messages, steps + 1, fixed, cost)
+
+            # History too big: keep the task + last KEEP_LAST messages, summarise the rest
+            history = estimate - fixed['system'] - fixed['tools']
+            if history > HISTORY_CEILING and len(messages) > KEEP_LAST + 1:
+                messages, usage = compact(client, task, messages, KEEP_LAST)
+                tokens += usage.input_tokens + usage.output_tokens
+                cost += (usage.input_tokens * MODEL['cost']['in'] + usage.output_tokens * MODEL['cost']['out']) / 1_000_000
+                print(f">>> summarised: history was {history} tokens")
+                estimate = show_budget(client, messages, steps + 1, fixed, cost)
+
+            response = client.messages.create(
+                model=MODEL['id'],
+                system=SYSTEM_PROMPT,
+                max_tokens=MAX_TOKENS,
+                messages=messages,
+                tools=all_tools
+            )
+        except (anthropic.APIStatusError, anthropic.APIConnectionError) as e:   # RateLimitError is an APIStatusError
+            result = f"API error: {e}"
+            return finish('api_error', task, result, steps + 1, tokens, cost)
+        print(f"estimate {estimate} vs API said {response.usage.input_tokens}")
         messages.append({
             'role': 'assistant',
             'content': response.content
@@ -85,8 +116,18 @@ def call_llm(client: Anthropic, messages: list) -> dict:
             if block.type == 'tool_use':
                 tool_choice.append(block)
 
+        # Check cut-off and refusal first: both also have stop_reason != 'tool_use'
+        if response.stop_reason == 'max_tokens':
+            return finish('truncated', task, result, steps + 1, tokens, cost)
+
+        if response.stop_reason == 'refusal':
+            return finish('refusal', task, result, steps + 1, tokens, cost)
+
         if response.stop_reason != 'tool_use':
-            return finish('done', messages[0]['content'], result, steps + 1, tokens, cost)
+            return finish('done', task, result, steps + 1, tokens, cost)
+
+        if tokens > BUDGET:
+            return finish('budget_hit', task, result, steps + 1, tokens, cost)
 
         tool_results = [call_tool(tool) for tool in tool_choice]
         messages.append({
@@ -94,7 +135,33 @@ def call_llm(client: Anthropic, messages: list) -> dict:
             'content': tool_results
         })
 
-    return finish('max_steps', messages[0]['content'], result, steps + 1, tokens, cost)
+    # 8. Hit the step limit: one last call with tools turned off, so the model must answer.
+    #    Tell it why, or it writes as if it's about to call the next tool ("Next, Pune.").
+    #    The last message is the tool results; a text block can go after them.
+    messages[-1]["content"].append({
+        "type": "text",
+        "text": "You have reached the step limit and can't call any more tools. "
+                "Answer now using only the results you already have, and say what is missing."
+    })
+    try:
+        last_call = client.messages.create(
+            model=MODEL['id'],
+            system=SYSTEM_PROMPT,
+            max_tokens=MAX_TOKENS,
+            messages=messages,
+            tools=all_tools,
+            tool_choice={"type": "none"}
+        )
+    except (anthropic.APIStatusError, anthropic.APIConnectionError) as e:
+        return finish('api_error', task, f"API error: {e}", MAX_STEPS + 1, tokens, cost)
+    tokens += last_call.usage.input_tokens + last_call.usage.output_tokens
+    cost += (last_call.usage.input_tokens * MODEL['cost']['in'] + last_call.usage.output_tokens * MODEL['cost']['out']) / 1_000_000
+    messages.append({"role": "assistant", "content": last_call.content})
+    answer = ""
+    for block in last_call.content:
+        if block.type == 'text':
+            answer += block.text
+    return finish('max_steps', task, answer, MAX_STEPS + 1, tokens, cost)
 
 
 if __name__ == "__main__":
@@ -111,5 +178,5 @@ if __name__ == "__main__":
             "content": user_input
         }]
         api_key = os.environ['ANTHROPIC_API_KEY']
-        client = Anthropic(api_key=api_key)
+        client = Anthropic(api_key=api_key, max_retries=4)
         print(call_llm(client, messages))
