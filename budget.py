@@ -13,8 +13,8 @@ def count_fixed(client) -> dict:
     tools = count(client, tools=all_tools, messages=DUMMY)
 
     return {
-        system: system - base,
-        tools: system - base
+        'system': system - base,
+        'tools': tools - base
     }
 
 
@@ -25,6 +25,10 @@ def count_total(client, messages) -> int:
 
 def compact(client, task, messages: list, keep_last: int) -> tuple:
     split_index = len(messages) - keep_last
+    # The kept part must start with an assistant message: then every tool_result in it has its
+    # tool_use with it, and middle ends with a user message (the tool results) that `ask` can join.
+    while split_index > 1 and messages[split_index]['role'] != 'assistant':
+        split_index -= 1
     middle = messages[:split_index]   # includes messages[0], so an earlier summary is carried into the new one
     tail = messages[split_index:]
     ask = {'type': 'text', 'text': "Stop here. Don't call any tools. Summarise what has been done so far: "
