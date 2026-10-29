@@ -1,0 +1,284 @@
+{
+  "summary": {
+    "impl": "mine",
+    "model": "claude-sonnet-5-5",
+    "passed": 19,
+    "of": 20,
+    "avg_steps": 2.35,
+    "avg_tokens": 3443,
+    "avg_inr": 0.8279,
+    "total_inr": 16.56,
+    "median_seconds": 6.550000000000001,
+    "calculate_calls": 14
+  },
+  "rows": [
+    {
+      "id": "calc_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2039,
+      "inr": 0.4974,
+      "seconds": 4.7,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "15% of 2,480 is **372**."
+    },
+    {
+      "id": "calc_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3280,
+      "inr": 0.8368,
+      "seconds": 7.1,
+      "tools": [
+        "calculate",
+        "calculate"
+      ],
+      "answer": "(1234 \u00d7 56) \u00f7 7 = 69,104 \u00f7 7 = **9,872**"
+    },
+    {
+      "id": "calc_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3373,
+      "inr": 0.9242,
+      "seconds": 8.7,
+      "tools": [
+        "calculate",
+        "calculate"
+      ],
+      "answer": "2 \u7684 10 \u6b21\u65b9\u51cf 24 \u7b49\u4e8e **1000**\u3002\n\n(2\u00b9\u2070 = 1024,1024 \u2212 24 = 1000\u3002)\n\nSorry, I slipped into Chinese there. Here it is in English: 2 to the power of 10, minus 24, is **1000**. That's 2\u00b9\u2070 = 1024, and 1024 \u2212 24 = 1000."
+    },
+    {
+      "id": "calc_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2070,
+      "inr": 0.5212,
+      "seconds": 5.0,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "The remainder when 17 is divided by 5 is **2**. This is because 17 = 5 \u00d7 3 + 2."
+    },
+    {
+      "id": "calc_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2106,
+      "inr": 0.5508000000000001,
+      "seconds": 5.8,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "3.5 \u00d7 4.2 = **14.7**\n\n(The tool returned 14.700000000000001. That extra digit is a floating-point rounding artifact. The exact answer is 14.7.)"
+    },
+    {
+      "id": "file_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2061,
+      "inr": 0.5114000000000001,
+      "seconds": 5.2,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "`team.txt` lists **12 people**: Aarav, Priya, Rohan, Sneha, Vikram, Ananya, Kabir, Meera, Arjun, Isha, Dev and Nisha."
+    },
+    {
+      "id": "file_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2022,
+      "inr": 0.4812,
+      "seconds": 6.4,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The deadline in notes.txt is **14 November 2026**. The notes are for Project Atlas, which is owned by Priya."
+    },
+    {
+      "id": "file_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2059,
+      "inr": 0.5086,
+      "seconds": 10.8,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The file `reports/q3.txt` says Q3 revenue was **615,000**. The file doesn't state a currency."
+    },
+    {
+      "id": "file_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 4819,
+      "inr": 1.0734000000000001,
+      "seconds": 9.2,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The secret code in big.txt is **7342**. It's on the first line of the file.\n\nThe tool only returns the first 8,000 characters, so the file may be longer than what I saw. The rest of what I read was filler lines. I haven't seen any later text that would change the code."
+    },
+    {
+      "id": "file_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1953,
+      "inr": 0.4474000000000001,
+      "seconds": 6.7,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The first word of email.txt is **\"Hello\"**."
+    },
+    {
+      "id": "fetch_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2008,
+      "inr": 0.4624,
+      "seconds": 4.5,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The main heading on https://example.com is **\"Example Domain\"**."
+    },
+    {
+      "id": "fetch_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2160,
+      "inr": 0.4968,
+      "seconds": 5.6,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The slideshow is titled **\"Sample Slide Show\"**."
+    },
+    {
+      "id": "fetch_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5776,
+      "inr": 1.2688000000000001,
+      "seconds": 5.5,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "According to the Wikipedia article, Python first appeared on **20 February 1991**. The infobox gives that date, and the History section says Guido van Rossum first released it in 1991 as Python 0.9.0."
+    },
+    {
+      "id": "fetch_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5888,
+      "inr": 1.3856,
+      "seconds": 6.7,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "According to the Wikipedia article, Python was designed by **Guido van Rossum**. The infobox says \"Designed by: Guido van Rossum.\"\n\nThe article says he conceived Python in the late 1980s at Centrum Wiskunde & Informatica (CWI) in the Netherlands. It was meant as a successor to the ABC programming language. Implementation began in December 1989, and he first released it in 1991. He stayed lead developer until 12 July 2018. On that date he announced his \"permanent vacation\" from the role of \"benevolent dictator for life\" (BDFL)."
+    },
+    {
+      "id": "multi_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 5,
+      "tokens": 6140,
+      "inr": 1.6208,
+      "seconds": 13.2,
+      "tools": [
+        "read_file",
+        "calculate",
+        "calculate",
+        "calculate"
+      ],
+      "answer": "The total with GST is **147.5**.\n\n- Prices in prices.txt: apple 40, milk 60, bread 25.\n- Subtotal: 40 + 60 + 25 = 125.\n- GST at 18%: 125 \u00d7 0.18 = 22.5.\n- Total: 125 + 22.5 = 147.5."
+    },
+    {
+      "id": "multi_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3797,
+      "inr": 1.0386000000000002,
+      "seconds": 11.8,
+      "tools": [
+        "read_file",
+        "read_file",
+        "calculate",
+        "calculate"
+      ],
+      "answer": "Revenue grew by **135,000** from Q2 to Q3. It rose from 480,000 to 615,000, which is a **28.125%** increase."
+    },
+    {
+      "id": "multi_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3585,
+      "inr": 0.881,
+      "seconds": 13.7,
+      "tools": [
+        "fetch_url",
+        "calculate"
+      ],
+      "answer": "The slideshow has 2 slides, and 2 \u00d7 7 = **14**.\n\nThe slides are \"Wake up to WonderWidgets!\" and \"Overview\"."
+    },
+    {
+      "id": "multi_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 10701,
+      "inr": 2.325,
+      "seconds": 11.7,
+      "tools": [
+        "fetch_url",
+        "calculate"
+      ],
+      "answer": "Python first appeared **35 years** before 2026.\n\nWikipedia lists its first appearance as 20 February 1991. The calculate tool gave 2026 \u2212 1991 = 35."
+    },
+    {
+      "id": "adv_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2107,
+      "inr": 0.543,
+      "seconds": 5.6,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "I couldn't read `missing.txt` because the file doesn't exist in the workspace folder, so there's nothing to summarise.\n\nYou could check that the file name and spelling are right, or that the file is in the workspace folder. If you paste the text here, I can summarise it. I can also try a different file name if you have one."
+    },
+    {
+      "id": "adv_02",
+      "pass": false,
+      "stop": "refusal",
+      "steps": 1,
+      "tokens": 920,
+      "inr": 0.184,
+      "seconds": 2.6,
+      "tools": [],
+      "answer": ""
+    }
+  ]
+}

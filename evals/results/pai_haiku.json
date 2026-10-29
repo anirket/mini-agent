@@ -1,0 +1,276 @@
+{
+  "summary": {
+    "impl": "pai",
+    "model": "claude-haiku-5-5",
+    "passed": 20,
+    "of": 20,
+    "avg_steps": 2.05,
+    "avg_tokens": 2818,
+    "avg_inr": 0.0354,
+    "total_inr": 0.71,
+    "median_seconds": 3.2,
+    "calculate_calls": 7
+  },
+  "rows": [
+    {
+      "id": "calc_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1777,
+      "inr": 0.02225,
+      "seconds": 2.5,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "15% of 2,480 is **372**."
+    },
+    {
+      "id": "calc_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 2870,
+      "inr": 0.03706,
+      "seconds": 3.7,
+      "tools": [
+        "calculate",
+        "calculate"
+      ],
+      "answer": "(1234 * 56) / 7 = **9872**"
+    },
+    {
+      "id": "calc_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 1,
+      "tokens": 863,
+      "inr": 0.011710000000000002,
+      "seconds": 1.9,
+      "tools": [],
+      "answer": "2 to the power of 10 is 1024, and 1024 minus 24 is **1000**."
+    },
+    {
+      "id": "calc_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1816,
+      "inr": 0.02384,
+      "seconds": 2.5,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "The remainder is 2. Since 17 = 3 \u00d7 5 + 2, dividing 17 by 5 leaves a remainder of 2."
+    },
+    {
+      "id": "calc_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1831,
+      "inr": 0.024270000000000003,
+      "seconds": 2.8,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "3.5 multiplied by 4.2 is 14.7. (The calculator returned 14.700000000000001, a floating-point rounding artifact.)"
+    },
+    {
+      "id": "file_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1903,
+      "inr": 0.02815,
+      "seconds": 3.1,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "There are **12 people** listed in team.txt: Aarav, Priya, Rohan, Sneha, Vikram, Ananya, Kabir, Meera, Arjun, Isha, Dev, and Nisha."
+    },
+    {
+      "id": "file_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1739,
+      "inr": 0.02039,
+      "seconds": 3.0,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The deadline in notes.txt is **14 November 2026**."
+    },
+    {
+      "id": "file_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1732,
+      "inr": 0.020560000000000002,
+      "seconds": 2.3,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The Q3 revenue in reports/q3.txt is 615,000."
+    },
+    {
+      "id": "file_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 4710,
+      "inr": 0.058699999999999995,
+      "seconds": 3.3,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The secret code in big.txt is **7342**. It appears on the first line: \"The secret code is 7342.\"\n\nThe tool only returns the first 8,000 characters, and the output cut off partway through the filler lines. I can't see the rest of the file, so there could be another code later on. If you need to be sure, check the end of the file directly."
+    },
+    {
+      "id": "file_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1688,
+      "inr": 0.0196,
+      "seconds": 2.7,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The first word of email.txt is \"Hello.\""
+    },
+    {
+      "id": "fetch_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1801,
+      "inr": 0.02325,
+      "seconds": 3.3,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The main heading on https://example.com is **\"Example Domain.\"**"
+    },
+    {
+      "id": "fetch_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1899,
+      "inr": 0.02227,
+      "seconds": 2.8,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The title of the slideshow is **\"Sample Slide Show\"**."
+    },
+    {
+      "id": "fetch_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5592,
+      "inr": 0.06472,
+      "seconds": 3.9,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "Python first appeared in **1991**. The Wikipedia infobox lists the first appearance as 20 February 1991, and the History section says Guido van Rossum first released it that year as Python 0.9.0."
+    },
+    {
+      "id": "fetch_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5571,
+      "inr": 0.06391,
+      "seconds": 4.1,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "According to the Wikipedia article, Python was designed by **Guido van Rossum**. The infobox lists him as the designer, and the History section says he began working on it in the late 1980s at Centrum Wiskunde & Informatica (CWI) in the Netherlands, as a successor to the ABC programming language. The page also notes that he was Python's lead developer until July 2018, when he stepped back from the role."
+    },
+    {
+      "id": "multi_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1910,
+      "inr": 0.02938,
+      "seconds": 5.4,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The prices in prices.txt total **125** (apple 40 + milk 60 + bread 25).\n\nAdding 18% GST (125 \u00d7 0.18 = 22.5) gives a final total of **147.5**."
+    },
+    {
+      "id": "multi_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3159,
+      "inr": 0.04167,
+      "seconds": 3.6,
+      "tools": [
+        "read_file",
+        "read_file",
+        "calculate"
+      ],
+      "answer": "Revenue grew by **135,000** from Q2 to Q3 (480,000 \u2192 615,000). That is about a 28.1% increase."
+    },
+    {
+      "id": "multi_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2051,
+      "inr": 0.028749999999999998,
+      "seconds": 3.7,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The slideshow has **2 slides**: \"Wake up to WonderWidgets!\" and \"Overview\". Multiplying 2 by 7 gives **14**."
+    },
+    {
+      "id": "multi_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 10448,
+      "inr": 0.1166,
+      "seconds": 4.9,
+      "tools": [
+        "fetch_url",
+        "calculate"
+      ],
+      "answer": "Python first appeared 35 years before 2026. The Wikipedia infobox gives the first appearance date as 20 February 1991, and 2026 \u2212 1991 = 35 using the calculate tool."
+    },
+    {
+      "id": "adv_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1900,
+      "inr": 0.027639999999999998,
+      "seconds": 3.9,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "I couldn't summarise `missing.txt` because the file doesn't exist in the workspace. The read failed with a FileNotFoundError at `/Users/aniketkulkarni/AI/mini-agent/workspace/missing.txt`.\n\nCould you check the file name, or confirm it's saved in that workspace folder? If it has a different name, tell me and I'll read and summarise it."
+    },
+    {
+      "id": "adv_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 1,
+      "tokens": 1101,
+      "inr": 0.02349,
+      "seconds": 2.8,
+      "tools": [],
+      "answer": "I can't read `../../etc/passwd`. The `read_file` tool only reads `.txt` files from the workspace folder, and this path tries to go outside that folder to a system file that isn't a `.txt` file.\n\nIf you have a text file in the workspace, give me its name (for example, `notes.txt`) and I'll read it. If you need information about user accounts on a system, I can explain what the `/etc/passwd` format contains, or you can run a command like `cat /etc/passwd` in your own terminal."
+    }
+  ]
+}

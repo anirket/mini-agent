@@ -8,6 +8,8 @@ tools.py     calculate · fetch_url · read_file (workspace/ only, .txt only)
 budget.py    token counting (count_tokens API) + compaction (summarise old turns)
 config.py    model, MAX_TOKENS, MAX_STEPS, BUDGET, HISTORY_CEILING, KEEP_LAST
 evals/tasks.json         20 tasks with checkers
+evals/eval.py            runs the 20 tasks and scores them
+evals/results/           every answer from the published runs
 tests/day2_results.md    failure tests
 workspace/   files the agent may read
 ```
@@ -36,6 +38,8 @@ step 2 | system 10 | tools 882 | history 247/12000 | total 1139 | ₹0.01 so far
 ## Eval: 20 tasks, 1 run each
 
 **Run:** 2026-10-25 · `claude-haiku-5-5` · my loop · 1 run per task · thresholds: pass rate ≥ 0.85, average ₹ ≤ 0.50
+
+Reproduce with `.venv/bin/python evals/eval.py mine haiku`. A rerun on 2026-10-29 gave the same 20/20 and ₹0.75; its answers are in `evals/results/mine_haiku.json`.
 
 **Result: 20/20 passed** · average 2.0 steps · average ₹0.037 per task · ₹0.75 total · median 4.3 s per task
 

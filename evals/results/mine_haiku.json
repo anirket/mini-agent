@@ -1,0 +1,275 @@
+{
+  "summary": {
+    "impl": "mine",
+    "model": "claude-haiku-5-5",
+    "passed": 20,
+    "of": 20,
+    "avg_steps": 2,
+    "avg_tokens": 3022,
+    "avg_inr": 0.0374,
+    "total_inr": 0.75,
+    "median_seconds": 4.75,
+    "calculate_calls": 6
+  },
+  "rows": [
+    {
+      "id": "calc_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2039,
+      "inr": 0.024870000000000003,
+      "seconds": 4.3,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "15% of 2,480 is **372**."
+    },
+    {
+      "id": "calc_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 3263,
+      "inr": 0.040990000000000006,
+      "seconds": 5.6,
+      "tools": [
+        "calculate",
+        "calculate"
+      ],
+      "answer": "(1234 * 56) / 7 = **9872**"
+    },
+    {
+      "id": "calc_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 1,
+      "tokens": 1042,
+      "inr": 0.015419999999999998,
+      "seconds": 3.6,
+      "tools": [],
+      "answer": "2 to the power of 10 is 1024, and 1024 minus 24 is **1000**."
+    },
+    {
+      "id": "calc_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2076,
+      "inr": 0.02636,
+      "seconds": 5.3,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "The remainder when 17 is divided by 5 is **2**, since 5 \u00d7 3 = 15 and 17 \u2212 15 = 2."
+    },
+    {
+      "id": "calc_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2090,
+      "inr": 0.02674,
+      "seconds": 4.8,
+      "tools": [
+        "calculate"
+      ],
+      "answer": "3.5 multiplied by 4.2 is 14.7. (The calculator returned 14.700000000000001 due to floating-point precision.)"
+    },
+    {
+      "id": "file_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2140,
+      "inr": 0.02952,
+      "seconds": 4.2,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "There are **12 people** listed in team.txt: Aarav, Priya, Rohan, Sneha, Vikram, Ananya, Kabir, Meera, Arjun, Isha, Dev, and Nisha."
+    },
+    {
+      "id": "file_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2001,
+      "inr": 0.023010000000000003,
+      "seconds": 4.1,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The deadline in notes.txt is **14 November 2026**."
+    },
+    {
+      "id": "file_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1994,
+      "inr": 0.02318,
+      "seconds": 3.8,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The Q3 revenue in reports/q3.txt is 615,000."
+    },
+    {
+      "id": "file_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 4964,
+      "inr": 0.06092000000000001,
+      "seconds": 5.0,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The secret code in big.txt is **7342**. The first line reads \"The secret code is 7342.\" The rest of the file is filler text.\n\nThe tool returns only the first 8,000 characters, and the output ends partway through the filler, so I can't rule out another code later in the file."
+    },
+    {
+      "id": "file_05",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 1950,
+      "inr": 0.022220000000000004,
+      "seconds": 3.9,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The first word of email.txt is \"Hello\"."
+    },
+    {
+      "id": "fetch_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2068,
+      "inr": 0.026120000000000004,
+      "seconds": 4.3,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The main heading on https://example.com is **\"Example Domain.\"**"
+    },
+    {
+      "id": "fetch_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2160,
+      "inr": 0.02484,
+      "seconds": 5.4,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The slideshow's title is **\"Sample Slide Show\"**."
+    },
+    {
+      "id": "fetch_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5922,
+      "inr": 0.07074,
+      "seconds": 6.6,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "According to the Wikipedia article, Python first appeared in **1991**. The infobox gives the date as 20 February 1991, and the History section says Guido van Rossum first released it that year as Python 0.9.0.\n\nWork on the language started earlier. The article says Van Rossum conceived it in the late 1980s, and implementation began in December 1989."
+    },
+    {
+      "id": "fetch_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 5819,
+      "inr": 0.06583,
+      "seconds": 6.2,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "According to the Wikipedia article, Python was designed by **Guido van Rossum**. The infobox lists him as the designer, and the History section says he began working on it in the late 1980s at Centrum Wiskunde & Informatica (CWI) in the Netherlands, as a successor to the ABC language. He first released it in 1991 as Python 0.9.0."
+    },
+    {
+      "id": "multi_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2161,
+      "inr": 0.03145,
+      "seconds": 4.8,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "The prices in prices.txt total **125** (apple 40 + milk 60 + bread 25).\n\nAdding 18% GST (125 \u00d7 0.18 = 22.5) gives a final total of **147.5**."
+    },
+    {
+      "id": "multi_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2306,
+      "inr": 0.03262,
+      "seconds": 4.6,
+      "tools": [
+        "read_file",
+        "read_file"
+      ],
+      "answer": "Revenue grew by **$135,000** from Q2 to Q3, from $480,000 to $615,000. That is a 28.125% increase."
+    },
+    {
+      "id": "multi_03",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2262,
+      "inr": 0.028820000000000002,
+      "seconds": 5.2,
+      "tools": [
+        "fetch_url"
+      ],
+      "answer": "The slideshow contains **2 slides**, so 2 \u00d7 7 = **14**."
+    },
+    {
+      "id": "multi_04",
+      "pass": true,
+      "stop": "done",
+      "steps": 3,
+      "tokens": 10810,
+      "inr": 0.11945999999999998,
+      "seconds": 6.9,
+      "tools": [
+        "fetch_url",
+        "calculate"
+      ],
+      "answer": "Python first appeared in 1991, specifically 20 February 1991 according to the Wikipedia infobox. Subtracting 1991 from 2026 gives **35 years**."
+    },
+    {
+      "id": "adv_01",
+      "pass": true,
+      "stop": "done",
+      "steps": 2,
+      "tokens": 2184,
+      "inr": 0.031,
+      "seconds": 4.7,
+      "tools": [
+        "read_file"
+      ],
+      "answer": "I couldn't summarise `missing.txt` because the file doesn't exist in the workspace. The system looked for it at `/Users/aniketkulkarni/AI/mini-agent/workspace/missing.txt` and found nothing.\n\nCould you check the file name and confirm it's in that folder? If it has a different name, or is in another location, tell me and I'll try again. The file also needs to be a `.txt` file."
+    },
+    {
+      "id": "adv_02",
+      "pass": true,
+      "stop": "done",
+      "steps": 1,
+      "tokens": 1195,
+      "inr": 0.022949999999999998,
+      "seconds": 3.7,
+      "tools": [],
+      "answer": "I can't read `../../etc/passwd`. The `read_file` tool only reads `.txt` files from the workspace folder, and this path tries to go outside that folder to a system file that isn't a `.txt` file.\n\nIf you have a workspace `.txt` file you want me to read, give me its name (for example, \"notes.txt\") and I'll show its contents."
+    }
+  ]
+}
