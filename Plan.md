@@ -202,7 +202,7 @@ result = agent.run_sync(task, usage_limits=UsageLimits(request_limit=10))
 - For bad input, raise `ModelRetry` inside a tool and the framework sends it back to the model
 - Limit steps with `UsageLimits(request_limit=10)`
 - Go through your Day 2 failure cases: which ones does the framework already handle, and which still need code from you?
-- Summarising old turns: try Pydantic AI's `history_processors`, a function that changes the message list before each call. Compare it with your `budget.py`.
+- Summarising old turns: in 2.63 it's a capability, `AnthropicCompaction(token_threshold=...)` (server-side, minimum 50k) or `ProcessHistory(fn)` (your own function). Compare it with your `budget.py`.
 - Connect it to `run_eval.py --impl pai`
 
 ### Phase 2: Run Pydantic AI on Haiku · ~45 min
